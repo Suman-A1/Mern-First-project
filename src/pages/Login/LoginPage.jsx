@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
@@ -51,12 +52,12 @@ function LoginPage() {
                   <div className="flex items-start">
                     <div className="flex items-center h-5"></div>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-sm font-light  hover:underline dark:text-primary-500"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
                 <button
                   type="submit"
@@ -66,12 +67,12 @@ function LoginPage() {
                 </button>
                 <p className="text-sm font-light">
                   Have not any account.
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="font-medium text-green-600 hover:underline dark:text-primary-500"
                   >
                     Create Now
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>
