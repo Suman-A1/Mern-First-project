@@ -12,16 +12,13 @@ const HomePage = () => {
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link to="Home" className="flex items-center   ">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-16">
+          <Link to="Home" className="flex items-center  ">
             <img
               src="/images/logonew.png"
-              className="h-16 "
+              className="w-[80px] "
               alt="leraning Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">
-              LearnHub
-            </span>
           </Link>
 
           <button
