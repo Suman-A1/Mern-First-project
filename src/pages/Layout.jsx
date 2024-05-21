@@ -6,9 +6,9 @@ import { Outlet } from "react-router-dom";
 const layout = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
