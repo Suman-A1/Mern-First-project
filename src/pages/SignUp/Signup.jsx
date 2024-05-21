@@ -76,7 +76,7 @@ const Signup = () => {
     if (!email) {
       errors.email = "Please enter your email address";
     } else {
-      const emailPattern = /@/;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
         errors.email = "Please enter a valid email address";
       }
@@ -139,21 +139,26 @@ const Signup = () => {
               <p className="text-lg  pt-4">Please fill these information</p>
             </div>
             {/* form start  */}
-            <form className="flex flex-col gap-6 mt-4" onSubmit={handleSubmit}>
+            <form
+              className="flex flex-col gap-6 mt-[40px]"
+              onSubmit={handleSubmit}
+            >
               <div className="flex gap-4 w-full md:flex-row flex-col">
-                <div className="w-full">
-                  <label
-                    htmlFor="firstName"
-                    className="text-lg font-semibold pb-2"
-                  >
-                    First Name
-                  </label>
+                <div className="w-full relative">
+                  <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                    <label
+                      htmlFor="firstName"
+                      className=" font-normal py-1 text-xs"
+                    >
+                      First Name
+                    </label>
+                  </div>
                   <input
                     type="text"
                     id="fname"
                     name="fname"
                     placeholder="Enter your First name"
-                    className="border-2 py-3 px-4 w-full rounded-lg"
+                    className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     value={formData.fname}
                     onChange={handleChange}
                   />
@@ -161,19 +166,21 @@ const Signup = () => {
                     <p className="text-red-500">{formData.errors.fname}</p>
                   )}
                 </div>
-                <div className="w-full">
-                  <label
-                    htmlFor="lastName"
-                    className="text-lg font-semibold pb-2"
-                  >
-                    Last Name
-                  </label>
+                <div className="w-full relative">
+                  <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                    <label
+                      htmlFor="lastName"
+                      className=" font-normal py-1 text-xs"
+                    >
+                      Last Name
+                    </label>
+                  </div>
                   <input
                     type="text"
                     id="lname"
                     name="lname"
                     placeholder="Enter your Last name"
-                    className="border-2 py-3 px-4 w-full rounded-lg"
+                    className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     value={formData.lname}
                     onChange={handleChange}
                   />
@@ -182,16 +189,18 @@ const Signup = () => {
                   )}
                 </div>
               </div>
-              <div>
-                <label htmlFor="email" className="text-lg font-semibold pb-2">
-                  Enter your Email
-                </label>
+              <div className="relative mt-[30px]">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                  <label htmlFor="email" className="font-normal py-1 text-xs">
+                    Enter your Email
+                  </label>
+                </div>
                 <input
                   type="text"
                   id="email"
                   name="email"
                   placeholder="Enter your Email"
-                  className="border-2 py-3 px-4 w-full rounded-lg"
+                  className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -200,19 +209,21 @@ const Signup = () => {
                 )}
               </div>
 
-              <div>
-                <label
-                  htmlFor="password"
-                  className="text-lg font-semibold pb-2"
-                >
-                  Password
-                </label>
+              <div className="relative mt-[30px]">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                  <label
+                    htmlFor="password"
+                    className="font-normal py-1 text-xs"
+                  >
+                    Password
+                  </label>
+                </div>
                 <input
                   type="password"
                   id="password"
                   name="password"
                   placeholder="Enter your password"
-                  className="border-2 py-3 px-4 w-full rounded-lg"
+                  className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   value={formData.password}
                   onChange={handleChange}
                 />
@@ -220,17 +231,20 @@ const Signup = () => {
                   <p className="text-red-500">{formData.errors.password}</p>
                 )}
               </div>
-              <div className="flex gap-4 w-full md:flex-row flex-col">
-                <div className="w-full">
-                  <label htmlFor="dob" className="text-lg font-semibold pb-2">
-                    DOB
-                  </label>
+              <div className="flex gap-4 w-full md:flex-row flex-col ">
+                <div className="w-full relative mt-[30px]">
+                  <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                    <label htmlFor="dob" className="font-normal py-1 text-xs">
+                      DOB
+                    </label>
+                  </div>
                   <input
                     type="date"
                     id="date"
                     name="date"
+                    max="2023-12-31"
                     placeholder="Enter your DOB"
-                    className="border-2 py-3 px-4 w-full rounded-lg"
+                    className="border-2 py-3 px-4 w-full rounded-lg focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none"
                     value={formData.date}
                     onChange={handleChange}
                   />
@@ -238,48 +252,66 @@ const Signup = () => {
                     <p className="text-red-500">{formData.errors.date}</p>
                   )}
                 </div>
-                <div className="w-full">
-                  <label for="job" className="text-lg font-semibold pb-2">
-                    Occupation
-                  </label>
-                  <select
-                    id="job"
-                    name="job"
-                    className="border-2 py-3 px-4 w-full rounded-lg"
-                    value={formData.job}
-                    onChange={handleChange}
-                  >
-                    {formData.errors.job && (
-                      <p className="text-red-500">{formData.errors.job}</p>
-                    )}
-                    <option value="default" selected hidden>
-                      Job
-                    </option>
-                    <option value="developer">Developer</option>
-                    <option value="engineer">Engineer</option>
-                    <option value="uiux">UI/UX</option>
-                    <option value="contentwriter">Content Writer</option>
-                  </select>
+                <div className="w-full relative mt-[30px] ">
+                  <div className="border-[1px] rounded-3xl absolute -top-[14px] left-3 px-3 bg-white flex items-center justify-center">
+                    <label
+                      htmlFor="job"
+                      className="font-normal py-1 text-xs bg-white"
+                    >
+                      Occupation
+                    </label>
+                  </div>
+                  <div className="">
+                    <div className="border-2 py-3 px-4 rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50">
+                      <select
+                        id="job"
+                        name="job"
+                        className="w-full outline-none bg-transparent "
+                        value={formData.job}
+                        onChange={handleChange}
+                        onFocus={(e) =>
+                          e.target.parentNode.classList.add("focus")
+                        }
+                        onBlur={(e) =>
+                          e.target.parentNode.classList.remove("focus")
+                        }
+                      >
+                        <option value="default" selected hidden>
+                          Job
+                        </option>
+                        <option value="developer">Developer</option>
+                        <option value="engineer">Engineer</option>
+                        <option value="uiux">UI/UX</option>
+                        <option value="contentwriter">Content Writer</option>
+                      </select>
+                      {formData.errors.job && (
+                        <p className="text-red-500">{formData.errors.job}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <label className="block">
-                  <span className="text-lg font-semibold pb-2">Bio</span>
-                  <textarea
-                    placeholder="Write here..."
-                    name="message"
-                    id="message"
-                    rows="3"
-                    className="border mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2 "
-                    value={formData.message}
-                    onChange={handleChange}
-                  ></textarea>
-                  {formData.errors.message && (
-                    <p className="text-red-500">{formData.errors.message}</p>
-                  )}
-                </label>
+              <div className="relative mt-[30px]">
+                <div className="border-[1px] rounded-3xl absolute -top-[14px] left-3 px-3 bg-white flex items-center justify-center">
+                  <label htmlFor="message" className="font-normal py-1 text-xs">
+                    Bio
+                  </label>
+                </div>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Write here"
+                  rows="3"
+                  className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  value={formData.message}
+                  onChange={handleChange}
+                ></textarea>
+                {formData.errors.message && (
+                  <p className="text-red-500">{formData.errors.message}</p>
+                )}
               </div>
-              <div className=" mt-3">
+
+              <div className=" mt-[30px]">
                 <div className="flex  ">
                   <p>Gender:</p>
 
@@ -288,7 +320,7 @@ const Signup = () => {
                       type="radio"
                       name="gender"
                       id="male"
-                      className="appearance-none border mt-2 border-gray-300 rounded-full w-3 h-3 checked:bg-green-500 checked:border-transparent focus:outline-none"
+                      className="appearance-none border mt-2 border-gray-300 rounded-full w-3 h-3 checked:bg-green-500 checked:border-transparent focus:outline-none outline-none"
                       onChange={handleChange}
                       value="male"
                       checked={formData.gender === "male"}
@@ -300,7 +332,7 @@ const Signup = () => {
                         type="radio"
                         name="gender"
                         id="female"
-                        className="appearance-none border mt-2 border-gray-300 rounded-full w-3 h-3 checked:bg-green-500 checked:border-transparent focus:outline-none"
+                        className="appearance-none border mt-2 border-gray-300 rounded-full w-3 h-3 checked:bg-green-500 checked:border-transparent focus:outline-none outline-none"
                         onChange={handleChange}
                         value="female"
                         checked={formData.gender === "female"}
@@ -317,7 +349,7 @@ const Signup = () => {
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-[30px]">
                 <button
                   type="submit"
                   className="w-full bg-green-500 text-white py-2 px-4 rounded focus:outline-none hover:bg-green-700"
@@ -325,7 +357,7 @@ const Signup = () => {
                   Sign Up
                 </button>
               </div>
-              <div className="mt-4">
+              <div className="mt-[30px]">
                 <p className="text-sm font-light text-center">
                   Already have an account?
                   <Link

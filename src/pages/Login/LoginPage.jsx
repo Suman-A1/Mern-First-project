@@ -42,33 +42,40 @@ function LoginPage() {
               className="flex flex-col  gap-6 mt-4 "
               onSubmit={handleSubmit}
             >
-              <div className="">
-                <label htmlFor="email" className="text-lg font-semibold pb-2 ">
-                  Enter your Email
-                </label>
+              <div className="relative">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                  <label
+                    htmlFor="email"
+                    className=" font-normal py-1 text-xs  "
+                  >
+                    Enter your Email
+                  </label>
+                </div>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   placeholder="Enter your email"
-                  className="border-2 py-3 px-4 w-full rounded-lg  "
+                  className="   border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
                   value={userLogin.email}
                   onChange={handleChange}
                 />
               </div>
-              <div className="">
-                <label
-                  htmlFor="password"
-                  className="text-lg font-semibold pb-2"
-                >
-                  Password
-                </label>
+              <div className="relative mt-[30px]">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
+                  <label
+                    htmlFor="password"
+                    className=" font-normal py-1 text-xs "
+                  >
+                    Password
+                  </label>
+                </div>
                 <input
                   type="password"
                   id="password"
                   name="password"
                   placeholder="Enter your password"
-                  className="border-2 py-3 px-4 w-full rounded-lg"
+                  className="border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
                   value={userLogin.password}
                   onChange={handleChange}
                 />
