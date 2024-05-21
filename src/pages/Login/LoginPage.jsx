@@ -1,84 +1,122 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import RightColumn from "../../components/loginSignup/RightColumn";
 
 function LoginPage() {
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(userLogin); // Log userLogin object to console
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-300 ">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:">
-                Login
-              </h1>
-              <span className="py-5">
-                <p className=" py-2">Please fill these details</p>
-              </span>
-
-              <form className="space-y-4 md:space-y-6" action="#">
-                <div>
+      <div className="bg-hero-pattern bg-cover bg-center h-full bg-[#172228] py-24">
+        <div className="flex bg-white flex-col md:flex-col lg:flex-row md:w-[85%]  rounded-lg mx-auto  ">
+          {/* first div  */}
+          <div className="flex flex-col  gap-6 md:w-full md:p-16 md:py-16   rounded-lg  lg:w-3/5  ">
+            <div className="">
+              <h1 className="font-bold text-2xl px-4">Login</h1>
+              <p className="text-lg  px-4 pt-2">Please fill your information</p>
+            </div>
+            {/* form start  */}
+            <form
+              className="flex flex-col  gap-6 mt-4 "
+              onSubmit={handleSubmit}
+            >
+              <div className="relative">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className=" font-normal py-1 text-xs  "
                   >
-                    Enter Your email
+                    Enter your Email
                   </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 "
-                    placeholder="name@gmail.com"
-                    required=""
-                  />
                 </div>
-                <div>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  className="   border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
+                  value={userLogin.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="relative mt-[30px]">
+                <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className=" font-normal py-1 text-xs "
                   >
                     Password
                   </label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300  sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    required=""
-                  />
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5"></div>
-                  </div>
-                  <Link
-                    to="#"
-                    className="text-sm font-light  hover:underline dark:text-primary-500"
-                  >
-                    Forgot password?
-                  </Link>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  className="border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
+                  value={userLogin.password}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5"></div>
                 </div>
+                <Link
+                  to="#"
+                  className="text-sm font-light hover:underline dark:text-primary-500"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className=" grid">
                 <button
                   type="submit"
-                  className="w-full text-white bg-green-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  "
+                  className="bg-green-500 font-semibold text-white text-2xl rounded-lg py-2 hover:bg-green-700"
                 >
                   Login
                 </button>
-                <p className="text-sm font-light">
-                  Have not any account.
-                  <Link
-                    to="#"
-                    className="font-medium text-green-600 hover:underline dark:text-primary-500"
-                  >
-                    Create Now
-                  </Link>
-                </p>
-              </form>
-            </div>
+              </div>
+              <p className="text-sm font-light text-center">
+                Have not any account?
+                <Link
+                  onClick={scrollToTop}
+                  to="/signup"
+                  className="font-medium text-green-600 hover:underline dark:text-primary-500"
+                >
+                  {" "}
+                  Create Now
+                </Link>
+              </p>
+            </form>
           </div>
+
+          {/* second div */}
+          <RightColumn />
         </div>
-      </section>
+      </div>
     </>
   );
 }
