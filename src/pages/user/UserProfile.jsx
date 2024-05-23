@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../components/Modal";
 import { FaCamera } from "react-icons/fa";
-import { validateEmail, validatePassword } from "../../utils/validations"; // import the validation functions
+import { validateEmail } from "../../utils/validations";
+
 // const initialValue = {
 //   fname: "suman",
 //   lname: "pervaiz",
@@ -11,6 +12,7 @@ import { validateEmail, validatePassword } from "../../utils/validations"; // im
 //   gender: " female",
 //   bio: "working",
 // };
+
 const UserProfile = () => {
   const imageRef = useRef(null);
   const [image, setImage] = useState("");
@@ -29,15 +31,10 @@ const UserProfile = () => {
     job: "",
     gender: "",
     bio: "",
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
-  const [passwordErrors, setPasswordErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,21 +60,6 @@ const UserProfile = () => {
       setTimeout(() => {
         setLoading(false);
         alert("Profile updated successfully!");
-      }, 2000);
-    }
-  };
-
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validatePassword(formData);
-    setPasswordErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      setLoading(true);
-
-      setTimeout(() => {
-        setLoading(false);
-        alert("Password updated successfully!");
-        setShowModal(false);
       }, 2000);
     }
   };
@@ -122,7 +104,6 @@ const UserProfile = () => {
         </nav>
         <div className="second-sec mt-16 flex justify-between px-20">
           <div className="relative">
-            {/* <img src="/images/vector.png" alt="profile-img" /> */}
             <div className="absolute top-14 left-16 bg-white p-2 rounded-[100%]">
               <FaCamera size={25} onClick={handleClickImage} />
             </div>
@@ -311,14 +292,7 @@ const UserProfile = () => {
           </form>
         </div>
       </div>
-      <Modal
-        isVisible={showModal}
-        onClose={() => setShowModal(false)}
-        formData={formData}
-        handleChange={handleChange}
-        handleSubmit={handlePasswordSubmit}
-        passwordErrors={passwordErrors}
-      />
+      <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
     </>
   );
 };

@@ -1,17 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { validatePassword } from "../utils/validations";
 
-const Modal = ({
-  isVisible,
-  onClose,
-  formData,
-  handleChange,
-  handleSubmit,
-  passwordErrors,
-}) => {
+const Modal = ({ isVisible, onClose }) => {
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const [passwordErrors, setPasswordErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
   if (!isVisible) return null;
 
   const handleClose = (e) => {
     if (e.target.id === "wrapper") onClose();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validatePassword(formData);
+    setPasswordErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      setLoading(true);
+
+      setTimeout(() => {
+        setLoading(false);
+        alert("Password updated successfully!");
+        onClose();
+      }, 2000);
+    }
   };
 
   return (
@@ -27,7 +50,7 @@ const Modal = ({
             <p className="font-normal text-sm mt-4">Enter Your Password</p>
           </div>
           <div className="px-8">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handlePasswordSubmit}>
               <div className="relative mt-10">
                 <div className="border-[1px] rounded-3xl -top-[14px] left-3 absolute px-3 bg-white flex items-center justify-center">
                   <label
@@ -104,8 +127,9 @@ const Modal = ({
                 <button
                   type="submit"
                   className="bg-green-500 text-white text-lg font-normal rounded-xl py-2 hover:bg-green-700"
+                  disabled={loading}
                 >
-                  Update
+                  {loading ? "Updating..." : "Update"}
                 </button>
               </div>
             </form>
