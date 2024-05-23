@@ -4,15 +4,6 @@ import Modal from "../../components/Modal";
 import { FaCamera } from "react-icons/fa";
 import { validateEmail } from "../../utils/validations";
 
-// const initialValue = {
-//   fname: "suman",
-//   lname: "pervaiz",
-//   email: "sumanpervaiz3@gmail.com",
-//   job: "Developer",
-//   gender: " female",
-//   bio: "working",
-// };
-
 const UserProfile = () => {
   const imageRef = useRef(null);
   const [image, setImage] = useState("");
@@ -32,10 +23,8 @@ const UserProfile = () => {
     gender: "",
     bio: "",
   });
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -43,15 +32,12 @@ const UserProfile = () => {
       [name]: value,
     });
   };
-
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-
     if (Object.values(formData).every((value) => value === "")) {
       alert("Please update at least one field.");
       return;
     }
-
     const validationErrors = validateEmail(formData);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
@@ -63,11 +49,9 @@ const UserProfile = () => {
       }, 2000);
     }
   };
-
   const handleClickImage = () => {
     imageRef.current.click();
   };
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -80,7 +64,6 @@ const UserProfile = () => {
       reader.readAsDataURL(file);
     }
   };
-
   return (
     <>
       <div className="">
