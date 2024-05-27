@@ -5,6 +5,7 @@ import Aboutus from "./pages/about/Aboutus.jsx";
 import HomePage from "./pages/homePage/HomePage.jsx";
 import Layout from "./pages/Layout.jsx";
 import UserProfile from "./pages/user/UserProfile.jsx";
+import ProfileTable from "./pages/profiletable/ProfileTable.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route index element={<LoginPage />} />
             <Route path="signup" element={<Signup />} />
             <Route path="userprofile" element={<UserProfile />} />
+            <Route path="profiletable" element={<ProfileTable />} />
           </Route>
         </Routes>
       </BrowserRouter>

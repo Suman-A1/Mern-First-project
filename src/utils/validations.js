@@ -10,26 +10,42 @@ export const validateEmail = (formData) => {
   return emailError;
 };
 
-export const validatePassword = (formData) => {
+export const validatePassword = (formData, storedPassword) => {
   let passError = {};
 
-  if (!formData.currentPassword) {
-    passError.currentPassword = "Current password is required";
-  }
-
-  if (!formData.newPassword) {
+  if (formData.currentPassword !== storedPassword) {
+    passError.currentPassword = "Current password does not match";
+  } else if (!formData.newPassword) {
     passError.newPassword = "New password is required";
   } else {
     const passwordPattern = /^(?=.*[!@#$])[a-zA-Z0-9!@#$]{5,}$/;
     if (!passwordPattern.test(formData.newPassword)) {
       passError.newPassword =
         "Password must have at least 5 characters including special characters like @, $, !, or #";
+    } else if (formData.newPassword !== formData.confirmPassword) {
+      passError.confirmPassword = "Passwords do not match";
     }
-  }
-
-  if (formData.newPassword !== formData.confirmPassword) {
-    passError.confirmPassword = "Passwords do not match";
   }
 
   return passError;
 };
+
+// export const validatePassword = (formData, storedPassword) => {
+//   let passError = {};
+
+//   if (formData.password !== formData.currentPassword) {
+//     passError.currentPassword = "Current password does not match";
+//   } else if (!formData.newPassword) {
+//     passError.newPassword = "New password is required";
+//   } else {
+//     const passwordPattern = /^(?=.*[!@#$])[a-zA-Z0-9!@#$]{5,}$/;
+//     if (!passwordPattern.test(formData.newPassword)) {
+//       passError.newPassword =
+//         "Password must have at least 5 characters including special characters like @, $, !, or #";
+//     } else if (formData.newPassword !== formData.confirmPassword) {
+//       passError.confirmPassword = "Passwords do not match";
+//     }
+//   }
+
+//   return passError;
+// };

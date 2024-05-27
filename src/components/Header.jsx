@@ -1,96 +1,79 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
 
-const HomePage = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-16">
-          <Link to="Home" className="flex items-center  ">
-            <img
-              src="/images/logonew.png"
-              className="w-[80px] "
-              alt="leraning Logo"
-            />
-          </Link>
-
-          <button
-            onClick={toggleMenu}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-expanded={menuOpen ? "true" : "false"}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
-          <div
-            className={`${
-              menuOpen ? "block" : "hidden"
-            } w-full md:block md:w-auto`}
-            id="navbar-default"
-          >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <Link
-                  to="/"
-                  className="block py-2 px-3 text-white md:p-0 dark:text-white text-[20px] md:hover:text-cyan-500"
-                >
+      <nav className="flex justify-around items-center bg-white border-[1px] border-slate-300 h-[80px] py-[26px] ">
+        <div className="flex">
+          <div>
+            <img src="/images/Logo.png" alt="Logo" />
+          </div>
+          <div>
+            <ul className="flex items-center ml-[72px]">
+              <Link to="/">
+                <button className="bg-green-500 text-white text-[16px] leading-[19.36px] font-normal hover:bg-green-600 py-[6px] px-[12px] rounded-[6px] mx-4">
                   Home
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  to="about"
-                  className=" text-[20px] block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-500 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  About
-                </Link>
-              </li> */}
-              <li>
-                <Link
-                  to="userprofile"
-                  className=" text-[20px] block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-500 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="login"
-                  className=" text-[20px] block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-cyan-500 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="signup"
-                  className="bg-cyan-500 text-xl text-white duration-500 px-6 py-2 mx-4 hover:bg-blue-700 "
-                >
-                  SignUp
-                </Link>
-              </li>
+                </button>
+              </Link>
+              <Link to="/">
+                <button className="text-[16px] leading-[19.36px] font-normal hover:bg-green-600 py-[6px] px-[12px] rounded-[6px] ml-5">
+                  Message
+                </button>
+              </Link>
             </ul>
+          </div>
+        </div>
+        <div className="flex items-center h-[50px] cursor-pointer relative">
+          <div className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3">
+            <div className="flex items-center relative">
+              <img
+                src="/images/profile-set.png"
+                alt="user profile"
+                className="h-[36px] w-[36px]"
+              />
+              <div className="text-[15px] font-medium leading-[18.15px] ml-3">
+                <h3>Joseph</h3>
+                <p className="font-normal text-[13px] leading-4 text-[#959EAD]">
+                  joseph@gmail.com
+                </p>
+              </div>
+
+              <img
+                src="/images/dropdown-icon.png"
+                alt="icon"
+                className="ml-12"
+                onClick={toggleDropdown}
+              />
+            </div>
+            {isOpen && (
+              <div className="absolute  top-[55px] right-0 mt-2 w-60 bg-white  rounded-lg  border-[1px] shadow-md pb-3 border-gray-100 ">
+                <ul className="h-[80px] ">
+                  <div className="flex mt-[12px] hover:bg-gray-300 py-1 ">
+                    <div className="ml-[16px] ">
+                      <img src="/images/user-icon.png" alt="user" />
+                    </div>
+                    <Link to="/userprofile">
+                      {" "}
+                      <li className="px-4 ">Edit Profile</li>
+                    </Link>
+                  </div>
+                  <div className="border-b-[2px] border-gray-100 mt-3"></div>
+                  <div className="flex mt-1 py-1  hover:bg-gray-300">
+                    <div className="mt- ml-[12px]">
+                      <img src="/images/logout-icon.png" alt="logout" />
+                    </div>
+                    <li className="px-5">Logout</li>
+                  </div>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -98,4 +81,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Header;

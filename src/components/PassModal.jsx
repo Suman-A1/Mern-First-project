@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { validatePassword } from "../utils/validations";
 
-const Modal = ({ isVisible, onClose }) => {
+const PassModal = ({ isVisible, onClose, storedPassword }) => {
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -24,7 +24,7 @@ const Modal = ({ isVisible, onClose }) => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validatePassword(formData);
+    const validationErrors = validatePassword(formData, storedPassword);
     setPasswordErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       setLoading(true);
@@ -140,4 +140,4 @@ const Modal = ({ isVisible, onClose }) => {
   );
 };
 
-export default Modal;
+export default PassModal;

@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Modal from "../../components/Modal";
+
 import { FaCamera } from "react-icons/fa";
 import { validateEmail } from "../../utils/validations";
+import { initialVaules } from "../../Constant";
+import PassModal from "../../components/PassModal";
+import Header from "../../components/Header";
 
 const UserProfile = () => {
   const imageRef = useRef(null);
@@ -14,15 +17,7 @@ const UserProfile = () => {
     }
   }, []);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    dob: "",
-    job: "",
-    gender: "",
-    bio: "",
-  });
+  const [formData, setFormData] = useState(initialVaules);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
@@ -67,24 +62,7 @@ const UserProfile = () => {
   return (
     <>
       <div className="">
-        <nav className="flex justify-between bg-white border-b-2 border-slate-300 px-20 py-3">
-          <div className="flex">
-            <h1 className="text-3xl font-bold text-green-500 mt-1">
-              <span className="text-black">Lo</span>go
-            </h1>
-            <ul className="flex items-center mx-10">
-              <Link to="/">
-                <button className="bg-green-500 text-white text-lg hover:bg-green-600 px-5 p-2 rounded-lg mx-4">
-                  Home
-                </button>
-              </Link>
-              <li>Message</li>
-            </ul>
-          </div>
-          <div>
-            <img src="/images/profile.png" alt="" className="h-[50px] w-full" />
-          </div>
-        </nav>
+        <Header />
         <div className="second-sec mt-16 flex justify-between px-20">
           <div className="relative">
             <div className="absolute top-14 left-16 bg-white p-2 rounded-[100%]">
@@ -275,7 +253,11 @@ const UserProfile = () => {
           </form>
         </div>
       </div>
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
+      <PassModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        storedPassword={formData.storedPassword}
+      />
     </>
   );
 };
