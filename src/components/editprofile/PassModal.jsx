@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { validatePassword } from "../utils/validations";
+import { validatePassword } from "../../utils/validations";
 
 const PassModal = ({ isVisible, onClose, storedPassword }) => {
   const [formData, setFormData] = useState({

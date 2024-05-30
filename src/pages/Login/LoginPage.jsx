@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import RightColumn from "../../components/loginSignup/RightColumn";
+import RightColumn from "../../components/loginsignup/RightColumn";
 
 function LoginPage() {
   const [userLogin, setUserLogin] = useState({
@@ -55,7 +55,7 @@ function LoginPage() {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
+                  placeholder="jhondoe@gmail.com"
                   className="   border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
                   value={userLogin.email}
                   onChange={handleChange}
@@ -74,7 +74,7 @@ function LoginPage() {
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder="******"
                   className="border-2 py-3 px-4 w-full rounded-lg focus-within:border-indigo-300 focus-within:ring focus-within:ring-indigo-200 focus-within:ring-opacity-50 outline-none"
                   value={userLogin.password}
                   onChange={handleChange}

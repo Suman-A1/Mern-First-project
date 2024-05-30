@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage.jsx";
-import Signup from "./pages/signUp/Signup.jsx";
-import Aboutus from "./pages/about/Aboutus.jsx";
-import HomePage from "./pages/homePage/HomePage.jsx";
-import Layout from "./pages/Layout.jsx";
-import UserProfile from "./pages/user/UserProfile.jsx";
+import Signup from "./pages/signup/Signup.jsx";
+
+import EditProfile from "./pages/user/EditProfile.jsx";
 import ProfileTable from "./pages/profiletable/ProfileTable.jsx";
+import { Layout } from "./pages/Layout.jsx";
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />} />
             <Route path="signup" element={<Signup />} />
-            <Route path="userprofile" element={<UserProfile />} />
+            <Route path="editprofile" element={<EditProfile />} />
             <Route path="profiletable" element={<ProfileTable />} />
           </Route>
         </Routes>

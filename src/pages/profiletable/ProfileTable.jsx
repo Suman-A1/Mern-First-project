@@ -1,19 +1,22 @@
 import React, { useMemo, useState } from "react";
-
 import {
   useTable,
   useSortBy,
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import { profileData } from "../../Constant";
-import { COLUMNS } from "../../components/column";
-import GlobalFilter from "../../components/ProfileFilter";
-import Header from "../../components/Header";
+import { TableData } from "../../constant";
+import { column } from "../../constant";
+import SearchBar from "../../components/profiletable/SearchBar";
+import Header from "../../components/navbar/Header";
+import { ConfirmModal } from "../../components/profiletable/ConfirmModal";
 
-const ReactTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => profileData, []);
+const ProfileTable = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const columns = useMemo(() => column, []);
+  const [data, setData] = useState(TableData);
+  //const data = useMemo(() => TableData, []);
 
   const [deleterow, setDeleteRow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -23,7 +26,6 @@ const ReactTable = () => {
       columns,
       data,
     },
-
     useGlobalFilter,
     useSortBy,
     usePagination
@@ -46,12 +48,14 @@ const ReactTable = () => {
 
   const { globalFilter, pageIndex } = state;
 
-  const handleDeleteModeToggle = () => {
+  const handleDeleteModeRow = () => {
+    // toggle the delete button
     setDeleteRow(!deleterow);
     setSelectedRows([]);
   };
 
   const handleSelectRow = (row) => {
+    //checkbox
     setSelectedRows((prev) =>
       prev.includes(row.id)
         ? prev.filter((id) => id !== row.id)
@@ -59,30 +63,61 @@ const ReactTable = () => {
     );
   };
 
-  const handleDeleteSelected = () => {
-    console.log("Delete rows:", selectedRows);
+  const handleSelectAll = () => {
+    if (selectedRows.length === page.length) {
+      setSelectedRows([]);
+    } else {
+      const allRowIds = page.map((row) => row.id);
+      setSelectedRows(allRowIds);
+    }
+  };
+
+  const handleDeleteSelected = (row) => {
+    if (selectedRows.includes(row.id)) {
+      setSelectedUsers([row.original]);
+      setShowModal(true);
+    }
+  };
+  const handleDeleteConfirm = (id) => {
+    setData((prevData) => {
+      const deletedUsers = prevData.filter((row) => row.id === id);
+      console.log("Deleted users:", deletedUsers);
+      return prevData.filter((row) => row.id !== id);
+    });
+    setShowModal(false);
+    setSelectedRows([]);
+    setSelectedUsers(null);
   };
 
   return (
     <>
       <Header />
-      <GlobalFilter
+      <SearchBar
         filter={globalFilter}
         setFilter={setGlobalFilter}
-        setDeleteRow={handleDeleteModeToggle}
+        setDeleteRow={handleDeleteModeRow}
       />
       <div className="">
         <table
           {...getTableProps()}
-          className=" w-[80%] mx-auto border-b-[1px] border-slate-300 mt-4"
+          className="w-[73%] mx-auto border-b-[1px] border-slate-300 mt-4 "
         >
-          <thead className="bg-gray-50 border-[1px] border-black ">
+          <thead className="bg-gray-50 border-[1px] border-slate-100 shadow-sm ">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
+                {deleterow && (
+                  <th className="px-6 py-3 text-left font-medium">
+                    <input
+                      type="checkbox"
+                      onChange={handleSelectAll}
+                      checked={selectedRows.length === page.length}
+                    />
+                  </th>
+                )}
                 {headerGroup.headers.map((column) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="px-6 py-3 text-left  font-medium    "
+                    className="px-6 py-3 text-left font-medium"
                   >
                     {column.render("Header")}
                     <span>
@@ -95,14 +130,17 @@ const ReactTable = () => {
           </thead>
           <tbody
             {...getTableBodyProps()}
-            className="bg-cyan-500 divide-y divide-gray-200"
+            className="bg-white divide-y divide-gray-200 "
           >
             {page.map((row) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr
+                  {...row.getRowProps()}
+                  className="odd:bg-white even:bg-[#FCFCFC] "
+                >
                   {deleterow && (
-                    <td className="px-8 py-4">
+                    <td className="px-6 py-4 ">
                       <input
                         type="checkbox"
                         checked={selectedRows.includes(row.id)}
@@ -113,9 +151,9 @@ const ReactTable = () => {
                   {row.cells.map((cell) => {
                     if (cell.column.id === "name") {
                       return (
-                        <td {...cell.getCellProps()} className="px-6 py-4 ">
+                        <td {...cell.getCellProps()} className="px-6 py-4">
                           <div className="">
-                            <div className=" h-10 w-10 absolute ">
+                            <div className="h-10 w-10 absolute">
                               <img
                                 className="h-[36px] w-[36px] rounded-[100%]"
                                 src="/images/profile-set.png"
@@ -123,10 +161,9 @@ const ReactTable = () => {
                               />
                             </div>
                             <div className="px-12">
-                              <div className="text-sm   text-[#121212] font-bold">
+                              <div className="text-sm text-[#121212] font-bold">
                                 {cell.render("Cell")}
                               </div>
-
                               <div className="text-xs text-gray-500">
                                 {row.original.email}
                               </div>
@@ -158,14 +195,14 @@ const ReactTable = () => {
                         >
                           {isActive ? (
                             <span
-                              className="px-2  inline-flex text-xs leading-5 font-semibold rounded-full 
-                            bg-green-100  text-green-800"
+                              className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                              bg-green-100 text-green-800"
                             >
-                              🌅 {cell.render("Cell")}
+                              ✔ {cell.render("Cell")}
                             </span>
                           ) : (
-                            <span className="px-2  inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                              🌭 {cell.render("Cell")}
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                              ❌ {cell.render("Cell")}
                             </span>
                           )}
                         </td>
@@ -174,18 +211,18 @@ const ReactTable = () => {
                       return (
                         <td
                           {...cell.getCellProps()}
-                          className="px-6 py-4 whitespace-nowrap text-[#7D8398] text-sm font-medium"
+                          className="px-6 py-4 whitespace-nowrap text-[#7D8398] text-sm font-medium "
                         >
                           {cell.render("Cell")}
                         </td>
                       );
                     }
                   })}
-                  <td className="  absolute -ml-[95px] py-4 whitespace-nowrap text-[#7D8398] text-sm font-medium ">
+                  <td className="absolute -ml-[95px] py-4 whitespace-nowrap text-[#7D8398] text-sm font-medium ">
                     {deleterow ? (
                       <button
-                        className="bg-green-500  hover:bg-red-500 text-white font-normal py-2 px-4 rounded-xl"
-                        onClick={handleDeleteSelected}
+                        className="bg-green-500 hover:bg-red-500 text-white font-normal py-2 px-5 rounded-xl"
+                        onClick={() => handleDeleteSelected(row)}
                       >
                         Delete
                       </button>
@@ -216,7 +253,7 @@ const ReactTable = () => {
             Previous
           </button>
           <button
-            className="bg-green-500 p-2 rounded-lg "
+            className="bg-green-500 p-2 rounded-lg"
             onClick={() => nextPage()}
             disabled={!canNextPage}
           >
@@ -224,8 +261,18 @@ const ReactTable = () => {
           </button>
         </div>
       </div>
+      <ConfirmModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        selectedUsers={selectedUsers}
+        onDelete={() => {
+          handleDeleteConfirm(selectedUsers[0].id);
+          setShowModal(false);
+          setSelectedUsers([]);
+        }}
+      />
     </>
   );
 };
 
-export default ReactTable;
+export default ProfileTable;

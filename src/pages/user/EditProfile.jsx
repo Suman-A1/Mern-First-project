@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import { FaCamera } from "react-icons/fa";
 import { validateEmail } from "../../utils/validations";
-import { initialVaules } from "../../Constant";
-import PassModal from "../../components/PassModal";
-import Header from "../../components/Header";
+import { initialVaules } from "../../constant";
+import PassModal from "../../components/editprofile/PassModal";
+import Header from "../../components/navbar/Header";
 
-const UserProfile = () => {
+const EditProfile = () => {
   const imageRef = useRef(null);
   const [image, setImage] = useState("");
   useEffect(() => {
@@ -58,6 +58,7 @@ const UserProfile = () => {
       };
       reader.readAsDataURL(file);
     }
+    setImage(file);
   };
   return (
     <>
@@ -262,4 +263,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default EditProfile;

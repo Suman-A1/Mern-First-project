@@ -8,7 +8,30 @@ export const initialVaules = {
   bio: "",
   storedPassword: "12345",
 };
-export const profileData = [
+export const column = [
+  {
+    Header: "Name of users",
+    accessor: "name",
+  },
+
+  {
+    Header: "Occupation",
+    accessor: "occupation",
+  },
+  {
+    Header: "Last Active",
+    accessor: "last active",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
+  {
+    Header: "Action",
+    accessor: "action",
+  },
+];
+export const TableData = [
   {
     id: 1,
     name: "Obediah Reek",
