@@ -10,8 +10,10 @@ import { column } from "../../constant";
 import SearchBar from "../../components/profiletable/SearchBar";
 import Header from "../../components/navbar/Header";
 import { ConfirmModal } from "../../components/profiletable/ConfirmModal";
+import { useNavigate } from "react-router-dom";
 
 const ProfileTable = () => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const columns = useMemo(() => column, []);
@@ -89,9 +91,14 @@ const ProfileTable = () => {
     setSelectedUsers(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedIn");
+    navigate("/");
+  };
+
   return (
     <>
-      <Header />
+      <Header handleLogout={handleLogout} />
       <SearchBar
         filter={globalFilter}
         setFilter={setGlobalFilter}

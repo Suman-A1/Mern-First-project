@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
 
-const Header = () => {
+const Header = ({ handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -74,7 +74,9 @@ const Header = () => {
                         className=""
                       />
                     </div>
-                    <li className="ml-[17px]">Logout</li>
+                    <li className="ml-[17px]" onClick={handleLogout}>
+                      Logout
+                    </li>
                   </div>
                 </ul>
               </div>

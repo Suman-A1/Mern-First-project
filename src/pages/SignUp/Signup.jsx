@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import RightColumn from "../../components/loginsignup/RightColumn";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +24,7 @@ const Signup = () => {
       message: "",
     },
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,26 +41,20 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(
-        formData.fname,
-        "|",
-        formData.lname,
-        "|",
-        formData.email,
-        "|",
-        formData.password,
-        "|",
-        formData.message,
-        "|",
-        formData.date,
-        "|",
-        formData.job,
-        "|",
-        formData.gender
-      );
+      const userData = {
+        fname: formData.fname,
+        lname: formData.lname,
+        email: formData.email,
+        password: formData.password,
+        date: formData.date,
+        gender: formData.gender,
+        message: formData.message,
+      };
+      localStorage.setItem("userDetails", JSON.stringify(userData));
+      toast.success("Signup successfully");
+      navigate("/");
     }
   };
-
   const validateForm = () => {
     const { fname, lname, email, password, message, date, job, gender } =
       formData;
