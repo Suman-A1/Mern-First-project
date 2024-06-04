@@ -1,7 +1,10 @@
+// LoginPage.jsx
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RightColumn from "../../components/loginsignup/RightColumn";
 import { toast } from "react-toastify";
+import { generateToken, getUserDetails } from "../../utils/auth";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -21,16 +24,21 @@ function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("userDetails"));
+    const storedUser = getUserDetails();
+
+    // if (!storedUser) {
+    //   toast.error("User details not found. Please sign up.");
+    //   return;
+    // }
 
     if (
-      storedUser &&
-      storedUser.email === formData.email &&
-      storedUser.password === formData.password
+      formData.email === storedUser.email &&
+      formData.password === storedUser.password
     ) {
-      localStorage.setItem("loggedIn", true);
-      toast.success("Login Successfully!");
-      navigate("profiletable");
+      generateToken(storedUser);
+
+      toast.success("Login Successful!");
+      navigate("/profiletable");
     } else {
       toast.error("Invalid email or password");
     }

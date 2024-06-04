@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
+import { isAuthenticated, getUserDetails } from "../../utils/auth";
 
 const Header = ({ handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const user = getUserDetails();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -13,7 +16,7 @@ const Header = ({ handleLogout }) => {
     <>
       <nav className="flex justify-around  items-center bg-white border-[1px] border-slate-300 h-[80px] py-[26px]  ">
         <div className="flex   ">
-          <div className=" ml-2 ">
+          <div className=" ml-4 ">
             <img src="/images/Logo.png" alt="Logo" />
           </div>
           {/* <div>
@@ -31,7 +34,7 @@ const Header = ({ handleLogout }) => {
             </ul>
           </div> */}
         </div>
-        <div className="flex items-center h-[50px] cursor-pointer relative">
+        <div className="flex items-center h-[50px]  relative">
           <div
             className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3 ml-[280px]
            "
@@ -43,18 +46,22 @@ const Header = ({ handleLogout }) => {
                 className="h-[36px] w-[36px] "
               />
               <div className="text-[15px] font-medium leading-[18.15px] ml-3">
-                <h3>Joseph</h3>
+                {isAuthenticated && <h3>{user.fname}</h3>}
+
                 <p className="font-normal text-[13px] leading-4 text-[#959EAD]">
-                  joseph@gmail.com
+                  {isAuthenticated && <h3>{user.email}</h3>}
                 </p>
               </div>
-              <AiOutlineDown className="ml-[45px]" onClick={toggleDropdown} />
+              <AiOutlineDown
+                className="ml-[40px] cursor-pointer"
+                onClick={toggleDropdown}
+              />
             </div>
             {isOpen && (
-              <div className="absolute top-[55px] right-0 mt-2 w-60 bg-white rounded-lg border-[1px] shadow-md pb-3 border-gray-100 z-10">
+              <div className="absolute top-[55px] right-0 mt-2 w-[270px] bg-white  rounded-lg border-[1px] shadow-md pb-3 border-gray-100 z-10">
                 <ul className="h-[80px]">
                   <div className="flex mt-[12px] hover:bg-gray-300 py-1 ">
-                    <div className="ml-[16px] mt-1">
+                    <div className="ml-[14px] mt-1">
                       <img
                         src="/images/user-icon.png"
                         alt="user"
@@ -74,7 +81,10 @@ const Header = ({ handleLogout }) => {
                         className=""
                       />
                     </div>
-                    <li className="ml-[17px]" onClick={handleLogout}>
+                    <li
+                      className="ml-[14px] cursor-pointer"
+                      onClick={handleLogout}
+                    >
                       Logout
                     </li>
                   </div>

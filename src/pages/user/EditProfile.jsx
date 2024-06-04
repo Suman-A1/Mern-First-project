@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { FaCamera } from "react-icons/fa";
 import { validateEmail } from "../../utils/validations";
-import { initialVaules } from "../../constant";
+import { initialVaules } from "../../utils/constant";
 import PassModal from "../../components/editprofile/PassModal";
 import Header from "../../components/navbar/Header";
 

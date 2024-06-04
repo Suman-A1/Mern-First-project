@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/login/LoginPage.jsx";
-import Signup from "./pages/signup/Signup.jsx";
+import LoginPage from "./auth/login/LoginPage.jsx";
+import Signup from "./auth/signup/Signup.jsx";
 import EditProfile from "./pages/user/EditProfile.jsx";
 import ProfileTable from "./pages/profiletable/ProfileTable.jsx";
 import { Layout } from "./pages/Layout.jsx";
-import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+import PrivateRoutes from "./middleware/PrivateRoutes.js";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginPage />} />
             <Route path="signup" element={<Signup />} />
-            <Route element={<ProtectedRoutes />}>
+            <Route element={<PrivateRoutes />}>
               <Route path="profiletable" element={<ProfileTable />} />
               <Route path="/editprofile" element={<EditProfile />} />
             </Route>

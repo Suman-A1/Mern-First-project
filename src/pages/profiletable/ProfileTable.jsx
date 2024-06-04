@@ -5,12 +5,13 @@ import {
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import { TableData } from "../../constant";
-import { column } from "../../constant";
+import { TableData } from "../../utils/constant";
+import { column } from "../../utils/constant";
 import SearchBar from "../../components/profiletable/SearchBar";
 import Header from "../../components/navbar/Header";
 import { ConfirmModal } from "../../components/profiletable/ConfirmModal";
 import { useNavigate } from "react-router-dom";
+import logout from "../../utils/auth";
 
 const ProfileTable = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const ProfileTable = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const columns = useMemo(() => column, []);
   const [data, setData] = useState(TableData);
+
   //const data = useMemo(() => TableData, []);
 
   const [deleterow, setDeleteRow] = useState(false);
@@ -92,9 +94,13 @@ const ProfileTable = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("loggedIn");
-    navigate("/");
+    logout(navigate); // Use the logout function from auth.js
   };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("loggedIn");
+  //   navigate("/");
+  // };
 
   return (
     <>
@@ -127,8 +133,16 @@ const ProfileTable = () => {
                     className="px-6 py-3 text-left font-medium"
                   >
                     {column.render("Header")}
-                    <span>
-                      {column.isSorted ? (column.isSortedDesc ? "▴" : "▾") : ""}
+                    <span className="text-gray-400 ml-2 text-xs">
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <i className="fa-solid fa-sort-down "></i>
+                        ) : (
+                          <i className="fa-solid fa-sort-up"></i>
+                        )
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </th>
                 ))}
@@ -245,26 +259,37 @@ const ProfileTable = () => {
           </tbody>
         </table>
 
-        <div className="flex gap-5 mb-14 mt-8 justify-center">
-          <span className="mt-2">
-            page{" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{" "}
-          </span>
+        <div className="flex gap-4 mb-14 mt-8 justify-end mr-44">
           <button
+            className="text-[#999999] border-[#EBEBEB] border-[1px]  cursor-pointer hover:bg-green-500 hover:text-white p-2 px-3 rounded-lg "
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            <i class="fa-solid fa-angles-left"></i>
+          </button>
+          <span className="mt-2  ">
+            <div className="">
+              <strong className="border-[#EBEBEB] border-[1px] w-2 mr-2 font-normal p-2.5 px-3  rounded-lg cursor-pointer text-[#999999] hover:bg-green-500 hover:text-white">
+                {pageIndex + 1}
+              </strong>{" "}
+              <strong className="border-[#EBEBEB] border-[1px] w-2 font-normal py-2.5 p-2 px-3 rounded-lg cursor-pointer text-[#999999] hover:bg-green-500 hover:text-white">
+                {pageOptions.length}
+              </strong>{" "}
+            </div>
+          </span>
+          {/* <button
             className="bg-green-500 p-2 rounded-lg"
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
           >
-            Previous
-          </button>
+            <i class="fa-solid fa-angles-left"></i>
+          </button> */}
           <button
-            className="bg-green-500 p-2 rounded-lg"
+            className="text-[#999999] border-[#EBEBEB] border-[1px] cursor-pointer hover:bg-green-500 hover:text-white p-2 px-3 rounded-lg"
             onClick={() => nextPage()}
             disabled={!canNextPage}
           >
-            Next
+            <i class="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>

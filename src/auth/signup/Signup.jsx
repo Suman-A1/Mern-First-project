@@ -358,7 +358,7 @@ const Signup = () => {
                   Already have an account?
                   <Link
                     onClick={scrollToTop}
-                    to="/login"
+                    to="/"
                     className="font-medium text-green-600 hover:underline dark:text-primary-500"
                   >
                     {" "}
