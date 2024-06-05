@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import RightColumn from "../../components/loginSignup/RightColumn";
+import { Link, useNavigate } from "react-router-dom";
+import RightColumn from "../../../components/loginsignup/RightColumn";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +24,7 @@ const Signup = () => {
       message: "",
     },
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,26 +41,20 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(
-        formData.fname,
-        "|",
-        formData.lname,
-        "|",
-        formData.email,
-        "|",
-        formData.password,
-        "|",
-        formData.message,
-        "|",
-        formData.date,
-        "|",
-        formData.job,
-        "|",
-        formData.gender
-      );
+      const userData = {
+        fname: formData.fname,
+        lname: formData.lname,
+        email: formData.email,
+        password: formData.password,
+        date: formData.date,
+        gender: formData.gender,
+        message: formData.message,
+      };
+      localStorage.setItem("userDetails", JSON.stringify(userData));
+      toast.success("Signup successfully");
+      navigate("/");
     }
   };
-
   const validateForm = () => {
     const { fname, lname, email, password, message, date, job, gender } =
       formData;
@@ -130,24 +125,26 @@ const Signup = () => {
 
   return (
     <>
-      <div className="bg-hero-pattern bg-cover bg-center h-full bg-[#172228] py-24">
+      <div className="bg-hero-pattern bg-cover bg-center h-full bg-[#172228] py-24 ">
         <div className="flex  lg:flex-row flex-col min-h-screen lg:w-[85%] bg-white rounded-lg mx-auto">
           {/* first div  */}
-          <div className="flex flex-col  gap-6 lg:w-[65%]  md:p-16  md:py-16 px-4 py-8 bg-white">
+          <div className="flex flex-col bg-white  gap-6 lg:w-[65%]  md:p-16  md:py-16 px-4 py-8 rounded-lg ">
             <div>
-              <h1 className="font-bold text-4xl">Sign Up</h1>
-              <p className="text-lg  pt-4">Please fill these information</p>
+              <h1 className="font-bold text-[32px] leading-[38px]">Sign Up</h1>
+              <p className="text-[16px] font-normal  mt-4">
+                Please fill these information
+              </p>
             </div>
             {/* form start  */}
             <form
-              className="flex flex-col gap-6 mt-[40px]"
+              className="flex flex-col gap-6 mt-[40px]  "
               onSubmit={handleSubmit}
             >
               <div className="flex gap-4 w-full md:flex-row flex-col">
                 <div className="w-full relative">
                   <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
                     <label
-                      htmlFor="firstName"
+                      htmlFor="fname"
                       className=" font-normal py-1 text-xs"
                     >
                       First Name
@@ -157,7 +154,7 @@ const Signup = () => {
                     type="text"
                     id="fname"
                     name="fname"
-                    placeholder="Enter your First name"
+                    placeholder="Jhon"
                     className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     value={formData.fname}
                     onChange={handleChange}
@@ -169,7 +166,7 @@ const Signup = () => {
                 <div className="w-full relative">
                   <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
                     <label
-                      htmlFor="lastName"
+                      htmlFor="lname"
                       className=" font-normal py-1 text-xs"
                     >
                       Last Name
@@ -179,7 +176,7 @@ const Signup = () => {
                     type="text"
                     id="lname"
                     name="lname"
-                    placeholder="Enter your Last name"
+                    placeholder="Doe"
                     className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     value={formData.lname}
                     onChange={handleChange}
@@ -199,7 +196,7 @@ const Signup = () => {
                   type="text"
                   id="email"
                   name="email"
-                  placeholder="Enter your Email"
+                  placeholder="jhondoe@gmail.com"
                   className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   value={formData.email}
                   onChange={handleChange}
@@ -222,7 +219,7 @@ const Signup = () => {
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder="******"
                   className="border-2 py-3 px-4 w-full rounded-lg outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   value={formData.password}
                   onChange={handleChange}
@@ -234,7 +231,7 @@ const Signup = () => {
               <div className="flex gap-4 w-full md:flex-row flex-col ">
                 <div className="w-full relative mt-[30px]">
                   <div className="border-[1px] rounded-3xl  -top-[14px] left-3  absolute px-3 bg-white flex items-center justify-center ">
-                    <label htmlFor="dob" className="font-normal py-1 text-xs">
+                    <label htmlFor="date" className="font-normal py-1 text-xs ">
                       DOB
                     </label>
                   </div>
@@ -243,8 +240,7 @@ const Signup = () => {
                     id="date"
                     name="date"
                     max="2023-12-31"
-                    placeholder="Enter your DOB"
-                    className="border-2 py-3 px-4 w-full rounded-lg focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none"
+                    className="border-2 py-3 px-4  w-full rounded-lg focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none cursor-pointer"
                     value={formData.date}
                     onChange={handleChange}
                   />
@@ -266,7 +262,7 @@ const Signup = () => {
                       <select
                         id="job"
                         name="job"
-                        className="w-full outline-none bg-transparent "
+                        className="w-full outline-none bg-transparent cursor-pointer "
                         value={formData.job}
                         onChange={handleChange}
                         onFocus={(e) =>
@@ -362,7 +358,7 @@ const Signup = () => {
                   Already have an account?
                   <Link
                     onClick={scrollToTop}
-                    to="/login"
+                    to="/"
                     className="font-medium text-green-600 hover:underline dark:text-primary-500"
                   >
                     {" "}

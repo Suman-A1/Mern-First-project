@@ -10,13 +10,13 @@ const AuthOptions = () => {
   return (
     <>
       <div className="flex flex-col   items-center justify-center  bg-[#F9F5F2] rounded-xl  p-10 lg:w-[40%]  ">
-        <div className="flex flex-col gap-6 w-[80%]  md:items-center">
+        <div className="flex flex-col  -mt-14 gap-6 w-[80%]  md:items-center">
           <h2 className="text-start lg:font-light  md:font-bold text-xl mr-[100px]">
             Continue with:
           </h2>
 
           <div
-            className="flex items-center bg-white h-12 rounded-l-full mt-2  lg::w-3/5   "
+            className="flex items-center bg-white h-12 rounded-l-full mt-[28px]  lg::w-3/5   "
             onClick={() => selectedItem("google")}
             style={{ cursor: "pointer" }}
           >
@@ -57,7 +57,7 @@ const AuthOptions = () => {
           </div>
 
           <div
-            className="flex items-center bg-white h-12 rounded-l-full mt-2  lg::w-3/5  "
+            className="flex items-center bg-white h-12 rounded-l-full mt-[20px]  lg::w-3/5  "
             onClick={() => selectedItem("apple")}
             style={{ cursor: "pointer" }}
           >
