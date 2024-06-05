@@ -117,7 +117,7 @@ const ProfileTable = () => {
         >
           <thead className="bg-gray-50 border-[1px] border-slate-100 shadow-sm ">
             {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
+              <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
                 {deleterow && (
                   <th className="px-6 py-3 text-left font-medium">
                     <input
@@ -129,6 +129,7 @@ const ProfileTable = () => {
                 )}
                 {headerGroup.headers.map((column) => (
                   <th
+                    key={column.id}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     className="px-6 py-3 text-left font-medium"
                   >
@@ -265,7 +266,7 @@ const ProfileTable = () => {
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
           >
-            <i class="fa-solid fa-angles-left"></i>
+            <i className="fa-solid fa-angles-left"></i>
           </button>
           <span className="mt-2  ">
             <div className="">
@@ -282,14 +283,14 @@ const ProfileTable = () => {
             onClick={() => previousPage()}
             disabled={!canPreviousPage}
           >
-            <i class="fa-solid fa-angles-left"></i>
+            <i className="fa-solid fa-angles-left"></i>
           </button> */}
           <button
             className="text-[#999999] border-[#EBEBEB] border-[1px] cursor-pointer hover:bg-green-500 hover:text-white p-2 px-3 rounded-lg"
             onClick={() => nextPage()}
             disabled={!canNextPage}
           >
-            <i class="fa-solid fa-angles-right"></i>
+            <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>

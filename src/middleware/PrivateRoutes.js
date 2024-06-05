@@ -1,19 +1,22 @@
-// PrivateRoutes.jsx
-
-import React from "react";
+import { React, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/auth";
 
-function PrivateRoute() {
+function PrivateRoutes() {
   const navigate = useNavigate();
   const isLoggedIn = isAuthenticated();
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, []);
+
   if (!isLoggedIn) {
-    navigate("/");
     return null;
   }
 
   return <Outlet />;
 }
 
-export default PrivateRoute;
+export default PrivateRoutes;

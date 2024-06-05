@@ -25,7 +25,7 @@ export const isAuthenticated = () => {
 
 const logout = (navigate) => {
   localStorage.removeItem(TOKEN_KEY);
-  //localStorage.removeItem(USER_KEY); // Clear user details on logout
+  localStorage.removeItem(USER_KEY); // Clear user details on logout
   navigate("/");
 };
 

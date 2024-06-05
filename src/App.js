@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./auth/login/LoginPage.jsx";
-import Signup from "./auth/signup/Signup.jsx";
+import LoginPage from "./pages/auth/login/LoginPage.jsx";
+import Signup from "./pages/auth/signup/Signup.jsx";
 import EditProfile from "./pages/user/EditProfile.jsx";
 import ProfileTable from "./pages/profiletable/ProfileTable.jsx";
 import { Layout } from "./pages/Layout.jsx";

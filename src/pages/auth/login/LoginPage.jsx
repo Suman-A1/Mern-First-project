@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import RightColumn from "../../components/loginsignup/RightColumn";
+import RightColumn from "../../../components/loginsignup/RightColumn";
 import { toast } from "react-toastify";
-import { generateToken, getUserDetails } from "../../utils/auth";
+import { generateToken, getUserDetails } from "../../../utils/auth";
 
 function LoginPage() {
   const [formData, setFormData] = useState({

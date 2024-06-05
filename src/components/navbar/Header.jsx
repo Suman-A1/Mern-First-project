@@ -16,7 +16,7 @@ const Header = ({ handleLogout }) => {
     <>
       <nav className="flex justify-around  items-center bg-white border-[1px] border-slate-300 h-[80px] py-[26px]  ">
         <div className="flex   ">
-          <div className=" ml-4 ">
+          <div className=" ml-1 ">
             <img src="/images/Logo.png" alt="Logo" />
           </div>
           {/* <div>
@@ -36,7 +36,7 @@ const Header = ({ handleLogout }) => {
         </div>
         <div className="flex items-center h-[50px]  relative">
           <div
-            className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3 ml-[280px]
+            className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3 ml-[240px]
            "
           >
             <div className="flex items-center relative ">
@@ -46,19 +46,19 @@ const Header = ({ handleLogout }) => {
                 className="h-[36px] w-[36px] "
               />
               <div className="text-[15px] font-medium leading-[18.15px] ml-3">
-                {isAuthenticated && <h3>{user.fname}</h3>}
+                {isAuthenticated && <span>{user.fname}</span>}
 
-                <p className="font-normal text-[13px] leading-4 text-[#959EAD]">
-                  {isAuthenticated && <h3>{user.email}</h3>}
-                </p>
+                <h3 className="font-normal text-[13px] leading-4 text-[#959EAD]">
+                  {isAuthenticated && <span>{user.email}</span>}
+                </h3>
               </div>
               <AiOutlineDown
-                className="ml-[40px] cursor-pointer"
+                className="ml-[38px] cursor-pointer"
                 onClick={toggleDropdown}
               />
             </div>
             {isOpen && (
-              <div className="absolute top-[55px] right-0 mt-2 w-[270px] bg-white  rounded-lg border-[1px] shadow-md pb-3 border-gray-100 z-10">
+              <div className="absolute top-[56px] right-0 mt-2 w-[270px] bg-white  rounded-lg border-[1px] shadow-md pb-3 border-gray-100 z-10">
                 <ul className="h-[80px]">
                   <div className="flex mt-[12px] hover:bg-gray-300 py-1 ">
                     <div className="ml-[14px] mt-1">
@@ -72,9 +72,9 @@ const Header = ({ handleLogout }) => {
                       <li className="px-4">Edit Profile</li>
                     </Link>
                   </div>
-                  <div className="border-b-[2px] border-gray-100 mt-3"></div>
-                  <div className="flex mt-1 py-1 hover:bg-gray-300 items-center justify-start">
-                    <div className="ml-[16px]">
+                  <div className="border-b-[2px] border-gray-100 mt-2 "></div>
+                  <div className="flex mt-2 py-1   hover:bg-gray-300 items-center justify-start">
+                    <div className="ml-[16px] ">
                       <img
                         src="/images/logout-icon.png"
                         alt="logout"
