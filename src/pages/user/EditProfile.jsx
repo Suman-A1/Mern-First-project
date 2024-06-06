@@ -1,13 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import { FaCamera } from "react-icons/fa";
 import { validateEmail } from "../../utils/validations";
 import { initialVaules } from "../../utils/constant";
 import PassModal from "../../components/editprofile/PassModal";
 import Header from "../../components/navbar/Header";
+import logout from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
+  const navigate = useNavigate();
+
   const imageRef = useRef(null);
   const [image, setImage] = useState("");
   useEffect(() => {
@@ -30,7 +34,7 @@ const EditProfile = () => {
   const handleProfileSubmit = (e) => {
     e.preventDefault();
     if (Object.values(formData).every((value) => value === "")) {
-      alert("Please update at least one field.");
+      toast.error("Please update at least one field.");
       return;
     }
     const validationErrors = validateEmail(formData);
@@ -40,7 +44,7 @@ const EditProfile = () => {
 
       setTimeout(() => {
         setLoading(false);
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
       }, 2000);
     }
   };
@@ -60,11 +64,15 @@ const EditProfile = () => {
     }
     setImage(file);
   };
+  const handleLogout = () => {
+    logout(navigate); // Use the logout function from auth.js
+  };
+
   return (
     <>
       <div className="">
-        <Header />
-        <div className="second-sec mt-16 flex justify-between px-20">
+        <Header handleLogout={handleLogout} />
+        <div className="second-sec mt-16 flex justify-between px-40">
           <div className="relative">
             <div className="absolute top-14 left-16 bg-white p-2 rounded-[100%]">
               <FaCamera size={25} onClick={handleClickImage} />
@@ -102,7 +110,7 @@ const EditProfile = () => {
             </button>
           </div>
         </div>
-        <div className="form-sec mt-12 px-20">
+        <div className="form-sec mt-12 px-40">
           <form onSubmit={handleProfileSubmit}>
             <div className="flex gap-8 w-full md:flex-row flex-col">
               <div className="w-full relative">

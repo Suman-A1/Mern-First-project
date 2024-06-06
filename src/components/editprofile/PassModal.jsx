@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { validatePassword } from "../../utils/validations";
+import { toast } from "react-toastify";
 
 const PassModal = ({ isVisible, onClose, storedPassword }) => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const PassModal = ({ isVisible, onClose, storedPassword }) => {
 
       setTimeout(() => {
         setLoading(false);
-        alert("Password updated successfully!");
+        toast.success("Password updated successfully!");
         onClose();
       }, 2000);
     }

@@ -20,8 +20,6 @@ const ProfileTable = () => {
   const columns = useMemo(() => column, []);
   const [data, setData] = useState(TableData);
 
-  //const data = useMemo(() => TableData, []);
-
   const [deleterow, setDeleteRow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -96,11 +94,6 @@ const ProfileTable = () => {
   const handleLogout = () => {
     logout(navigate); // Use the logout function from auth.js
   };
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("loggedIn");
-  //   navigate("/");
-  // };
 
   return (
     <>
@@ -278,13 +271,7 @@ const ProfileTable = () => {
               </strong>{" "}
             </div>
           </span>
-          {/* <button
-            className="bg-green-500 p-2 rounded-lg"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            <i className="fa-solid fa-angles-left"></i>
-          </button> */}
+
           <button
             className="text-[#999999] border-[#EBEBEB] border-[1px] cursor-pointer hover:bg-green-500 hover:text-white p-2 px-3 rounded-lg"
             onClick={() => nextPage()}

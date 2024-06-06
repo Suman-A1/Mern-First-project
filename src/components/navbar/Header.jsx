@@ -2,22 +2,31 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
 import { isAuthenticated, getUserDetails } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const user = getUserDetails();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+  const handleLogoClick = () => {
+    navigate("/");
   };
 
   return (
     <>
       <nav className="flex justify-around  items-center bg-white border-[1px] border-slate-300 h-[80px] py-[26px]  ">
         <div className="flex   ">
-          <div className=" ml-1 ">
-            <img src="/images/Logo.png" alt="Logo" />
+          <div className=" ml-2 ">
+            <img
+              src="/images/Logo.png"
+              alt="Logo"
+              className="cursor-pointer"
+              onClick={handleLogoClick}
+            />
           </div>
           {/* <div>
             <ul className="flex items-center ml-[72px]">
@@ -36,7 +45,7 @@ const Header = ({ handleLogout }) => {
         </div>
         <div className="flex items-center h-[50px]  relative">
           <div
-            className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3 ml-[240px]
+            className="main-div bg-white border-[1px] shadow-sm border-gray-100 flex items-center rounded-xl p-3 ml-[260px]
            "
           >
             <div className="flex items-center relative ">
